@@ -73,7 +73,7 @@ namespace MouseJiggler
                 return;
 
             timerJiggle.Stop();
-            timerTimeout.Interval = (int)double.Parse(txtSeconds.Text) * 1000;
+            timerTimeout.Interval = int.Parse(txtIdleTimeout.Text) * 1000;
             timerTimeout.Stop();
             timerTimeout.Start();
         }
@@ -84,6 +84,14 @@ namespace MouseJiggler
             {
                 ReleaseCapture();
                 SendMessage(Handle, 0xA1, 0x2, 0);
+            }
+        }
+
+        private void txtSeconds_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

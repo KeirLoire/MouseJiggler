@@ -30,13 +30,15 @@
         {
             components = new System.ComponentModel.Container();
             btnStart = new Button();
-            txtSeconds = new TextBox();
-            lblSeconds = new Label();
+            txtIdleTimeout = new TextBox();
             lblTitle = new Label();
             btnExit = new Button();
             lblAuthor = new Label();
             timerJiggle = new System.Windows.Forms.Timer(components);
             timerTimeout = new System.Windows.Forms.Timer(components);
+            grpIdleTimeout = new GroupBox();
+            label1 = new Label();
+            grpIdleTimeout.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
@@ -46,38 +48,29 @@
             btnStart.FlatStyle = FlatStyle.Flat;
             btnStart.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnStart.ForeColor = Color.White;
-            btnStart.Location = new Point(12, 131);
+            btnStart.Location = new Point(170, 104);
             btnStart.Name = "btnStart";
-            btnStart.Size = new Size(238, 93);
+            btnStart.Size = new Size(67, 57);
             btnStart.TabIndex = 0;
             btnStart.Text = "START";
             btnStart.UseVisualStyleBackColor = false;
             btnStart.Click += btnStart_Click;
             // 
-            // txtSeconds
+            // txtIdleTimeout
             // 
-            txtSeconds.Location = new Point(145, 96);
-            txtSeconds.Name = "txtSeconds";
-            txtSeconds.Size = new Size(105, 23);
-            txtSeconds.TabIndex = 1;
-            txtSeconds.Text = "5";
-            // 
-            // lblSeconds
-            // 
-            lblSeconds.AutoSize = true;
-            lblSeconds.ForeColor = Color.White;
-            lblSeconds.Location = new Point(12, 99);
-            lblSeconds.Name = "lblSeconds";
-            lblSeconds.Size = new Size(127, 15);
-            lblSeconds.TabIndex = 2;
-            lblSeconds.Text = "Idle Timeout (seconds)";
+            txtIdleTimeout.Location = new Point(6, 22);
+            txtIdleTimeout.Name = "txtIdleTimeout";
+            txtIdleTimeout.Size = new Size(131, 23);
+            txtIdleTimeout.TabIndex = 1;
+            txtIdleTimeout.Text = "5";
+            txtIdleTimeout.KeyPress += txtSeconds_KeyPress;
             // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitle.ForeColor = Color.White;
-            lblTitle.Location = new Point(30, 9);
+            lblTitle.Location = new Point(29, 25);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(198, 37);
             lblTitle.TabIndex = 3;
@@ -91,7 +84,7 @@
             btnExit.FlatStyle = FlatStyle.Flat;
             btnExit.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnExit.ForeColor = Color.White;
-            btnExit.Location = new Point(234, 0);
+            btnExit.Location = new Point(222, -2);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(30, 24);
             btnExit.TabIndex = 4;
@@ -104,7 +97,7 @@
             // 
             lblAuthor.AutoSize = true;
             lblAuthor.ForeColor = Color.White;
-            lblAuthor.Location = new Point(50, 46);
+            lblAuthor.Location = new Point(49, 62);
             lblAuthor.Name = "lblAuthor";
             lblAuthor.Size = new Size(152, 15);
             lblAuthor.TabIndex = 5;
@@ -119,25 +112,49 @@
             // 
             timerTimeout.Tick += timerTimeout_Tick;
             // 
+            // grpIdleTimeout
+            // 
+            grpIdleTimeout.Controls.Add(txtIdleTimeout);
+            grpIdleTimeout.ForeColor = Color.White;
+            grpIdleTimeout.Location = new Point(12, 104);
+            grpIdleTimeout.Name = "grpIdleTimeout";
+            grpIdleTimeout.Size = new Size(143, 57);
+            grpIdleTimeout.TabIndex = 9;
+            grpIdleTimeout.TabStop = false;
+            grpIdleTimeout.Text = "Jiggle Pause (seconds)";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(170, 178);
+            label1.Name = "label1";
+            label1.Size = new Size(67, 15);
+            label1.TabIndex = 10;
+            label1.Text = "© KeirLoire";
+            // 
             // Menu
             // 
             AcceptButton = btnStart;
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(33, 33, 33);
             CancelButton = btnExit;
-            ClientSize = new Size(262, 236);
+            ClientSize = new Size(249, 202);
             ControlBox = false;
+            Controls.Add(label1);
+            Controls.Add(grpIdleTimeout);
             Controls.Add(lblAuthor);
             Controls.Add(btnExit);
             Controls.Add(lblTitle);
-            Controls.Add(lblSeconds);
-            Controls.Add(txtSeconds);
             Controls.Add(btnStart);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
             Name = "Menu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Mouse Jiggler";
             MouseDown += Drag_MouseDown;
+            grpIdleTimeout.ResumeLayout(false);
+            grpIdleTimeout.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -145,12 +162,13 @@
         #endregion
 
         private Button btnStart;
-        private TextBox txtSeconds;
-        private Label lblSeconds;
+        private TextBox txtIdleTimeout;
         private Label lblTitle;
         private Button btnExit;
         private Label lblAuthor;
         private System.Windows.Forms.Timer timerJiggle;
         private System.Windows.Forms.Timer timerTimeout;
+        private GroupBox grpIdleTimeout;
+        private Label label1;
     }
 }
