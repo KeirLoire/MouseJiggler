@@ -7,6 +7,12 @@ namespace MouseJiggler
         private bool _isJiggling = false;
         private bool _toggle = false;
 
+        [DllImport("user32.dll")]
+        private static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
         public Menu()
         {
             InitializeComponent();
@@ -70,6 +76,15 @@ namespace MouseJiggler
             timerTimeout.Interval = (int)double.Parse(txtSeconds.Text) * 1000;
             timerTimeout.Stop();
             timerTimeout.Start();
+        }
+
+        private void Drag_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, 0xA1, 0x2, 0);
+            }
         }
     }
 }

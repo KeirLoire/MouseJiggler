@@ -82,6 +82,7 @@
             lblTitle.Size = new Size(198, 37);
             lblTitle.TabIndex = 3;
             lblTitle.Text = "Mouse Jiggler";
+            lblTitle.MouseDown += Drag_MouseDown;
             // 
             // btnExit
             // 
@@ -108,6 +109,7 @@
             lblAuthor.Size = new Size(152, 15);
             lblAuthor.TabIndex = 5;
             lblAuthor.Text = "Stay online, while you sleep";
+            lblAuthor.MouseDown += Drag_MouseDown;
             // 
             // timerJiggle
             // 
@@ -135,6 +137,7 @@
             KeyPreview = true;
             Name = "Menu";
             Text = "Mouse Jiggler";
+            MouseDown += Drag_MouseDown;
             ResumeLayout(false);
             PerformLayout();
         }
