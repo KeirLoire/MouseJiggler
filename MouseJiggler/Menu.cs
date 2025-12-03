@@ -1,15 +1,75 @@
+using System.Runtime.InteropServices;
+
 namespace MouseJiggler
 {
     public partial class Menu : Form
     {
+        private bool _isJiggling = false;
+        private bool _toggle = false;
+
         public Menu()
         {
             InitializeComponent();
+
+            timerJiggle.Interval = 1000;
+
+            InputHook.UserActivity += OnUserActivity;
+            InputHook.Start();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
+            if (_isJiggling)
+            {
+                _isJiggling = false;
+                btnStart.Text = "START";
+                timerJiggle.Stop();
+                timerTimeout.Stop();
+            }
+            else
+            {
+                _isJiggling = true;
+                btnStart.Text = "STOP";
+                timerJiggle.Start();
+                timerTimeout.Stop();
+            }
+        }
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void timerJiggler_Tick(object sender, EventArgs e)
+        {
+            var cursorPosition = Cursor.Position;
+            var offset = _toggle ? 1 : -1;
+
+            _toggle = !_toggle;
+
+            Cursor.Position = new Point(cursorPosition.X + offset, cursorPosition.Y + offset);
+
+        }
+
+        private void timerTimeout_Tick(object sender, EventArgs e)
+        {
+            timerTimeout.Stop();
+
+            if (_isJiggling)
+            {
+                timerJiggle.Start();
+            }
+        }
+
+        private void OnUserActivity(object sender, EventArgs e)
+        {
+            if (!_isJiggling)
+                return;
+
+            timerJiggle.Stop();
+            timerTimeout.Interval = (int)double.Parse(txtSeconds.Text) * 1000;
+            timerTimeout.Stop();
+            timerTimeout.Start();
         }
     }
 }
