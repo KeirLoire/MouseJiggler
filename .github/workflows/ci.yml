@@ -1,0 +1,42 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - README.md
+  pull_request:
+    branches: [main, master]
+    paths-ignore:
+      - README.md
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Release]
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build binary
+      run: msbuild MouseJiggler.sln /t:Restore /p:Configuration=Release
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Binary
+        path: |
+          MouseJiggler/bin/Release
