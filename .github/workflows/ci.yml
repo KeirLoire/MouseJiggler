@@ -29,7 +29,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Restore dependencies
-      run: msbuild MouseJiggler.sln /t:Restore /p:Configuration=Release
+      run: msbuild MouseJiggler.sln /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x64
 
     - name: Build binary
       run: msbuild MouseJiggler.sln /t:Publish /p:Configuration=Release /p:PublishSingleFile=true /p:RuntimeIdentifier=win-x64 /p:SelfContained=false
