@@ -124,7 +124,7 @@
             grpIdleTimeout.Size = new Size(143, 57);
             grpIdleTimeout.TabIndex = 9;
             grpIdleTimeout.TabStop = false;
-            grpIdleTimeout.Text = "Jiggle Pause (seconds)";
+            grpIdleTimeout.Text = "Idle Timeout (seconds)";
             // 
             // label1
             // 
