@@ -5,6 +5,7 @@ namespace MouseJiggler
     public partial class frmMenu : Form
     {
         private bool _isJiggling = false;
+        private bool _isSelfMove = false;
         private bool _toggle = false;
 
         [DllImport("user32.dll")]
@@ -48,13 +49,16 @@ namespace MouseJiggler
 
         private void timerJiggler_Tick(object sender, EventArgs e)
         {
+            _isSelfMove = true;
+
             var cursorPosition = Cursor.Position;
-            var offset = _toggle ? 1 : -1;
+            var offset = _toggle ? 5 : -5;
 
             _toggle = !_toggle;
 
             Cursor.Position = new Point(cursorPosition.X + offset, cursorPosition.Y + offset);
 
+            Task.Delay(50).ContinueWith(_ => _isSelfMove = false);
         }
 
         private void timerTimeout_Tick(object sender, EventArgs e)
@@ -69,6 +73,9 @@ namespace MouseJiggler
 
         private void OnUserActivity(object sender, EventArgs e)
         {
+            if (_isSelfMove)
+                return;
+
             if (!_isJiggling)
                 return;
 
