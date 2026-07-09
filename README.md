@@ -15,7 +15,7 @@
 
 ## About
 
-Moves the mouse cursor by a small 1-pixel offset to keep the system active. When the jiggler is running, it automatically pauses whenever mouse or keyboard activity is detected, and resumes once the user becomes idle.
+Moves the mouse cursor by a small 1-pixel offset to keep the system active. When the jiggler is started, it automatically pauses whenever you move the mouse or press a key, and it resumes once you become idle for 5 seconds or depending on the idle timeout value you used.
 
 ## Prerequisites
 This binary requires prerequisites in order to run.
