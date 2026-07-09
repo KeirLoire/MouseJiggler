@@ -5,7 +5,6 @@ namespace MouseJiggler
     public partial class frmMenu : Form
     {
         private bool _isJiggling = false;
-        private bool _isSelfMove = false;
         private bool _toggle = false;
 
         [DllImport("user32.dll")]
@@ -49,29 +48,10 @@ namespace MouseJiggler
 
         private void timerJiggler_Tick(object sender, EventArgs e)
         {
-            _isSelfMove = true;
+            var offset = _toggle ? 2 : -2;
+            _toggle = !_toggle;
 
-            var cursorPosition = Cursor.Position;
-            var bounds = SystemInformation.VirtualScreen;
-            var offset = _toggle ? 5 : -5;
-            var newCursorPosition = new Point(cursorPosition.X + offset, cursorPosition.Y + offset);
-
-            if (!bounds.Contains(newCursorPosition))
-            {
-                int centerX = bounds.X + bounds.Width / 2;
-                int centerY = bounds.Y + bounds.Height / 2;
-
-                Cursor.Position = new Point(centerX, centerY);
-            }
-            else
-            {
-                _toggle = !_toggle;
-
-                Cursor.Position = newCursorPosition;
-            }
-                
-
-            Task.Delay(50).ContinueWith(_ => _isSelfMove = false);
+            InputHook.SendJiggleInput(offset, offset);
         }
 
         private void timerTimeout_Tick(object sender, EventArgs e)
@@ -84,9 +64,9 @@ namespace MouseJiggler
             }
         }
 
-        private void OnUserActivity(object sender, EventArgs e)
+        private void OnUserActivity(object? sender, EventArgs e)
         {
-            if (_isSelfMove || !_isJiggling)
+            if (!_isJiggling)
                 return;
 
             timerJiggle.Stop();
@@ -114,7 +94,7 @@ namespace MouseJiggler
 
         private void btnMinimize_Click(object sender, EventArgs e)
         {
-            frmMenu.ActiveForm.WindowState = FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void btnStart_MouseHover(object sender, EventArgs e)
