@@ -1,4 +1,4 @@
-﻿namespace MouseJiggler
+namespace MouseJiggler
 {
     partial class frmMenu
     {
@@ -36,10 +36,8 @@
             lblAuthor = new Label();
             timerJiggle = new System.Windows.Forms.Timer(components);
             timerTimeout = new System.Windows.Forms.Timer(components);
-            grpIdleTimeout = new GroupBox();
             label1 = new Label();
             btnMinimize = new Button();
-            grpIdleTimeout.SuspendLayout();
             SuspendLayout();
             // 
             // btnStart
@@ -49,20 +47,19 @@
             btnStart.FlatStyle = FlatStyle.Flat;
             btnStart.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnStart.ForeColor = Color.White;
-            btnStart.Location = new Point(170, 104);
+            btnStart.Location = new Point(170, 92);
             btnStart.Name = "btnStart";
-            btnStart.Size = new Size(67, 57);
+            btnStart.Size = new Size(67, 76);
             btnStart.TabIndex = 0;
             btnStart.Text = "START";
             btnStart.UseVisualStyleBackColor = false;
             btnStart.Click += btnStart_Click;
-            btnStart.MouseHover += btnStart_MouseHover;
             // 
             // txtIdleTimeout
             // 
-            txtIdleTimeout.Location = new Point(6, 22);
+            txtIdleTimeout.Location = new Point(24, 134);
             txtIdleTimeout.Name = "txtIdleTimeout";
-            txtIdleTimeout.Size = new Size(131, 23);
+            txtIdleTimeout.Size = new Size(119, 20);
             txtIdleTimeout.TabIndex = 1;
             txtIdleTimeout.Text = "5";
             txtIdleTimeout.KeyPress += txtSeconds_KeyPress;
@@ -94,7 +91,6 @@
             btnExit.Text = "X";
             btnExit.UseVisualStyleBackColor = false;
             btnExit.Click += btnExit_Click;
-            btnExit.MouseHover += btnExit_MouseHover;
             // 
             // lblAuthor
             // 
@@ -114,17 +110,6 @@
             // timerTimeout
             // 
             timerTimeout.Tick += timerTimeout_Tick;
-            // 
-            // grpIdleTimeout
-            // 
-            grpIdleTimeout.Controls.Add(txtIdleTimeout);
-            grpIdleTimeout.ForeColor = Color.White;
-            grpIdleTimeout.Location = new Point(12, 104);
-            grpIdleTimeout.Name = "grpIdleTimeout";
-            grpIdleTimeout.Size = new Size(143, 57);
-            grpIdleTimeout.TabIndex = 9;
-            grpIdleTimeout.TabStop = false;
-            grpIdleTimeout.Text = "Idle Timeout (seconds)";
             // 
             // label1
             // 
@@ -153,7 +138,6 @@
             btnMinimize.TextAlign = ContentAlignment.TopCenter;
             btnMinimize.UseVisualStyleBackColor = false;
             btnMinimize.Click += btnMinimize_Click;
-            btnMinimize.MouseHover += btnMinimize_MouseHover;
             // 
             // frmMenu
             // 
@@ -165,7 +149,7 @@
             ControlBox = false;
             Controls.Add(btnMinimize);
             Controls.Add(label1);
-            Controls.Add(grpIdleTimeout);
+            Controls.Add(txtIdleTimeout);
             Controls.Add(lblAuthor);
             Controls.Add(btnExit);
             Controls.Add(lblTitle);
@@ -176,8 +160,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Mouse Jiggler";
             MouseDown += Drag_MouseDown;
-            grpIdleTimeout.ResumeLayout(false);
-            grpIdleTimeout.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -191,7 +173,6 @@
         private Label lblAuthor;
         private System.Windows.Forms.Timer timerJiggle;
         private System.Windows.Forms.Timer timerTimeout;
-        private GroupBox grpIdleTimeout;
         private Label label1;
         private Button btnMinimize;
     }
